@@ -40,4 +40,56 @@ $(document).ready(function(){
 	toggleSlide('.catalog-item__link');
 	toggleSlide('.catalog-item__back');
 	// /Tabs
+	// Modals
+	$('[data-modal="consultation"]').on('click', function () {
+		$('.overlay, #consultation').fadeIn('slow');
+	});
+	
+	$('.button_mini').each(function (i) {
+		$(this).on('click', function () {
+			$('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
+			$('.overlay, #order').fadeIn('slow');
+		});
+	});
+	
+	$('.modal__close').on('click', function () {
+		$('.overlay, #consultation, #order, #thanks').fadeOut('slow');
+	});
+	// /Modals
+	// Validation forms
+	function validationForms(form) {
+		$(form).validate({
+			rules: {
+				// simple rule, converted to {required:true}
+				tel: "required",
+				// compound rule
+				name: {
+					required: true,
+					minlength: 2
+				},
+				email: {
+					required: true,
+					email: true
+				}
+			},
+			messages: {
+				name: {
+					required: "Введите, пожалуйста, Ваше имя",
+					minlength: jQuery.validator.format("Имя должно содержать минимум {0} символа")
+				},
+				tel: "Введите, пожалуйста, номер Вашего телефона",
+				email: {
+					required: "Нам необходим Ваш email адрес",
+					email: "Ваш email адрес должен быть в формате name@domain.com"
+				}
+			}
+		});
+	}
+	
+	validationForms('#consultation-form');
+	
+	validationForms('#consultation form');
+	
+	validationForms('#order form');
+	// /Validation forms
 });
