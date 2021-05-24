@@ -92,4 +92,39 @@ $(document).ready(function(){
 	
 	validationForms('#order form');
 	// /Validation forms
+	// Masked Input
+	$('input[name=tel]').mask("+7 (999) 999-9999");
+	// /Masked Input
+	// PHPMailer
+	$('form').submit(function (e) {
+		e.preventDefault();
+		$.ajax({
+			url: "mailer/smart.php",
+			type: "POST",
+			data: $(this).serialize(),
+		}).done(function () {
+			$(this).find("input").val('');
+			$('#consultation, #order').fadeOut('slow');
+			$('.overlay, #thanks').fadeIn('slow');
+			$('form').trigger('reset');
+		});
+		return false;
+	});
+	// /PHPMailer
+	// Smooth Scroll and page Up
+	$(window).scroll(function () {
+		if ($(this).scrollTop() > 300) {
+			$('.pageup').fadeIn('slow');
+		} else {
+			$('.pageup').fadeOut();
+		}
+	});
+	
+	$("a[href^='#up']").click(function(){
+		const _href = $(this).attr("href");
+		$("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+		return false;
+	});
+	// /Smooth Scroll  and page Up
+	new WOW().init();
 });

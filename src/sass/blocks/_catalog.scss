@@ -153,7 +153,7 @@
 			transition: 0.5s all;
 			&_active {
 				transform: translateX(-100%);
-				margin-left: 0;
+				margin-left: -18px;
 			}
 			li {
 				position: relative;
